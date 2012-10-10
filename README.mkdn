@@ -1,0 +1,5 @@
+# Staatslot-check
+
+Perl script to check what you have won in the dutch national lotery. 
+
+    usage: check.pl AA123456
