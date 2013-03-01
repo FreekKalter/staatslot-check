@@ -42,7 +42,6 @@ for my $tr ( $root->find_by_attribute( "class" , "nr$number[-1]" )->look_down( "
         if($td->attr("class") eq "hCol2"){
             my ($let, $num) = $td->as_text =~ m/([A-Z]{0,2})\s+([0-9]{1,6})/;
             if( $number =~ /$let$num$/ ){
-                #say "matched: $let$num";
                 my ($money) = $td->right()->as_text =~ m/([0-9.,]+)/;
                 $money =~ s/[.,]//g;
                 if(  $money > $prize ) { $prize = $money; $matched="$let$num"; } ;
@@ -50,9 +49,10 @@ for my $tr ( $root->find_by_attribute( "class" , "nr$number[-1]" )->look_down( "
         }
     }
 }
-print substr $number, 0, length($matched)* -1;
-say colored($matched, 'red bold');
 if($prize > 0){
+    print substr $number, 0, length($matched)* -1;
+    say colored($matched, 'red bold');
+
     $prize =~ s/(.*)([0-9]{2})$/$1,$2/; # add , on right place
     1 while $prize =~ s/(\d)(\d\d\d)(?!\d)/$1.$2/; # add . on right places
     say "Won: €$prize";
